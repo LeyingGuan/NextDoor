@@ -43,8 +43,7 @@
 #'        errors[[j]][,i] = (data$response-model0$predictions)^2
 #'     }
 #' }
-#'res = nextdoor(errors0 = errors0, errors = errors, S =c(1:length(nams)), nams=nams, B = 1000, alpha = 0.1, pv = TRUE,
-#'                rescale = TRUE, selectionType = 0,trace = TRUE)
+#'res = nextdoor(errors0 = errors0, errors = errors, S =c(1:length(nams)), nams=nams, B = 1000, alpha = 0.1, pv = TRUE, rescale = TRUE, selectionType = 0,trace = TRUE)
 #' @export
 nextdoor <- function(errors0, errors, S, nams=NULL, K = 100, B = 1000,
 alpha = 0.1, epsilon = 0.05^2, epsilon2 = 0.05^2,
