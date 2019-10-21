@@ -112,7 +112,7 @@ score = TRUE, B1 = 50, Bindex1 = NULL,trace = TRUE){
             for(b in 1:B1){
                 if(trace){print(b)}
                 xb = x[Bindex1[,b],]
-                yb = x[Bindex1[,b]]
+                yb = y[Bindex1[,b]]
                 Rb = train_model2(x = xb, y = yb, family=family, foldid = foldid, lambda = lambda, lambda_extra = lambda_extra, 
                                   standardize = standardize,lossfun = lossfun,epsilon = epsilon,alpha = alpha, selectionType = selectionType)
                 counts = counts+ S%in%Rb$S
