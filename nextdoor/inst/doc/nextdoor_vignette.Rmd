@@ -267,6 +267,7 @@ nextdoor(errors0, errors, S, nams=NULL, K = 100, B = 1000, alpha = 0.1, epsilon 
 
 * `pv_value`: p values for proximity analysis
 
+* `result_table`: organized result table
 ### Example
 set.seed(48)
 alphas = c(1:10)/10; 

@@ -53,6 +53,8 @@ debiased_errors: de-biased estimate of the model error for the process excluding
 worsen: estimated increase in prediction error
 
 pv_value: p values for proximity analysis
+
+result_table: organized result table.
 }
 \description{
 Perform the model selection, unbiased error estimation and the nextdoor test(p-value)
@@ -76,4 +78,5 @@ for(i in 1:length(alphas)){
     }
 }
 res = nextdoor(errors0 = errors0, errors = errors, S =c(1:length(nams)), nams=nams, B = 1000, alpha = 0.1, pv = TRUE, rescale = TRUE, selectionType = 0,trace = TRUE)
+print(res, digits =3)
 }

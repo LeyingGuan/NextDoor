@@ -49,7 +49,7 @@ pvalue, selection_frequency, model_score){
     rownames(results)= c(nams[features], "cv_error", "debiased_error",
     "selection_frequency","model_pvalue",
     "model_score")
-    colnames(results) = c("original", S)
+    colnames(results) = c("original", nams[S])
     coefj =  coef(model0, s = model0$lambda[index])[-1,1]
     for(j in 1:length(features)){
         if(coefj[features[j]] != 0){

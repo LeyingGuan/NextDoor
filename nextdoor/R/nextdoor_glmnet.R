@@ -47,7 +47,7 @@
 #' set.seed(48)
 #' cv_glm = cv.glmnet(x = x, y = y, keep = TRUE, family = "gaussian", standardize = FALSE, nfolds = 3, nlambda = 30)
 #' R1 = nextdoor.glmnet(x = x, y = y, nams = nams, family = "gaussian", cv_glm = cv_glm, standardize = FALSE, alpha = .1,B = 1000, B1 = 20)
-#' print(round(R1$result_table,3))
+#' print(R1, digits =3)
 #' @export
 nextdoor.glmnet <- function(x, y, cv_glm, nams = NULL, family = "gaussian",  lossfun = NULL, standardize = T,
 K = 100, B = 1000, alpha = 0.1, epsilon = 0.05^2, epsilon2 =0.05^2,
@@ -115,6 +115,7 @@ score = TRUE, B1 = 50, Bindex1 = NULL,trace = TRUE){
                 yb = y[Bindex1[,b]]
                 Rb = train_model2(x = xb, y = yb, family=family, foldid = foldid, lambda = lambda, lambda_extra = lambda_extra, 
                                   standardize = standardize,lossfun = lossfun,epsilon = epsilon,alpha = alpha, selectionType = selectionType)
+
                 counts = counts+ S%in%Rb$S
             }
             print("########Bootstrap Iteration#############")
@@ -129,14 +130,16 @@ score = TRUE, B1 = 50, Bindex1 = NULL,trace = TRUE){
         index = index0, S = S, p = ncol(x),
         pvalue = p_value, selection_frequency = selection_frequency,
         model_score = model_score)
-        return(list(model0 = model0,  models = models,
-        index = index0, S = S,
-        errors0 = errors0, errors = errors,
-        debiased_errors0 = debiased_errors0, debiased_errors = debiased_errors,
-        worsen = worsen, p_value = p_value,
-        selection_frequency = selection_frequency, model_score = model_score,
-        result_table = result_table
-        ))
+        return_obj <-list(model0 = model0,  models = models,
+                          index = index0, S = S,
+                          errors0 = errors0, errors = errors,
+                          debiased_errors0 = debiased_errors0, debiased_errors = debiased_errors,
+                          worsen = worsen, p_value = p_value,
+                          selection_frequency = selection_frequency, model_score = model_score,
+                          result_table = result_table)
+        class(return_obj) <- "nextdoor"
+        
+        return(return_obj)
     }
 }
 

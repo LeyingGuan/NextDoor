@@ -24,6 +24,7 @@
 #' @return debiased_errors: de-biased estimate of the model error for the process excluding a specific feature
 #' @return worsen: estimated increase in prediction error
 #' @return pv_value: p values for proximity analysis
+#' @return result_table: organized result table.
 #' @importFrom MASS mvrnorm
 #' @examples
 #' data(prostateCancerData);library(ranger); library(MASS)
@@ -44,6 +45,7 @@
 #'     }
 #' }
 #'res = nextdoor(errors0 = errors0, errors = errors, S =c(1:length(nams)), nams=nams, B = 1000, alpha = 0.1, pv = TRUE, rescale = TRUE, selectionType = 0,trace = TRUE)
+#'print(res, digits =3)
 #' @export
 nextdoor <- function(errors0, errors, S, nams=NULL, K = 100, B = 1000,
 alpha = 0.1, epsilon = 0.05^2, epsilon2 = 0.05^2,
@@ -100,9 +102,19 @@ trace = T){
         one_sds = one_sds, trace=TRUE)
         names(p_value)=nams[S]
     }
-    return(list(debiased_errors0 = error0_random_estimates,
-    debiased_errors = error_random_estimates,
-    worsen = random_estimates,
-    p_value = p_value))
+    result_table <- data.frame(matrix(NA, ncol = length(S)+1, nrow =2))
+    result_table[1,1] = error0_random_estimates;
+    result_table[1,-1] = unlist(error_random_estimates)
+    if(!is.null(p_value)){
+        result_table[2,-1] = p_value 
+    }
+    colnames(result_table) = c("original", nams[S])
+    rownames(result_table) = c("randomized.error.estimate", "Bootstrap.p-value")
+    return_obj <-list(debiased_errors0 = error0_random_estimates,
+                      debiased_errors = error_random_estimates,
+                      worsen = random_estimates,
+                      p_value = p_value, result_table = result_table)
+    class(return_obj) <- "nextdoor"
+    return(return_obj)
 }
 
