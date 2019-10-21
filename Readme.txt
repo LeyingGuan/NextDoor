@@ -8,7 +8,7 @@ library(devtools)
 
 install_github("LeyingGuan/NextDoor/nextdoor")
 
-library(bcops)
+library(nextdoor)
 
 or download the zip file nextdoor_0.1.0.tar.gz and install it in R locally.
 ## Overview
