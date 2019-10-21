@@ -45,7 +45,7 @@
 #' y = data_train$response
 #' nams = data_train$names; n=length(y)
 #' set.seed(48)
-#' cv_glm = cv.glmnet(x = x, y = y, keep = TRUE, family = "gaussian", standardize = FALSE, nfolds = 3, nlambda = 30)
+#' cv_glm = cv.glmnet(x = x, y = y, keep = TRUE, family = "gaussian", standardize = FALSE, nfolds = 10, nlambda = 30)
 #' R1 = nextdoor.glmnet(x = x, y = y, nams = nams, family = "gaussian", cv_glm = cv_glm, standardize = FALSE, alpha = .1,B = 1000, B1 = 20)
 #' print(R1, digits =3)
 #' @export
